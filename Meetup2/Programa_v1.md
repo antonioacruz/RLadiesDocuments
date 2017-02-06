@@ -10,7 +10,7 @@
 
 11h - 11h20 - Cafézinho e comida!
 
-11h40 - Exercícios 
+11h40 - Mini-Projeto 
 
 12h00 - Apresentação de cada grupo (1-2 mins cada)
 
