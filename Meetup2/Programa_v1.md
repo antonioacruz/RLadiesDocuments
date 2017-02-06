@@ -1,13 +1,17 @@
 ## Programa do workshop
 
-9h15 - Recepção - Boas vindas
+9h00 - Recepção - Boas vindas
 
-9h30 - Introdução à visualização de dados
+9h30 - Iniciar R-Studio - Breve explicação
 
-10h30 - Exercícios
+9h45 - Introdução à visualização de dados
 
-11h15 - 11h30 - Cafézinho e Comida! 
+10h10 -  Exercícios
 
-11h40 - Exercícios
+11h - 11h20 - Cafézinho e comida!
 
-12h30 - Finalização do workshop 
+11h40 - Exercícios 
+
+12h00 - Apresentação de cada grupo (1-2 mins cada)
+
+12h30 - Finalização do workshop e anunciar eventos futuros
