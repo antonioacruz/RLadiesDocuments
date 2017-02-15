@@ -10,8 +10,7 @@ No final do workshop os participantes deverão:
 
 ### Conteúdo/Âmbito
 Será feita uma breve introdução ao R e a bibliotecas e pacotes associados. Contudo, a sintax e gramática não serão abordadas de forma aprofundada neste workshop. A análise de dados e a interpretação da mesma análise estão fora do âmbito deste workshop, podendo ser abordadas num futuro workshop.
-A brief introduction to R and to some data visualization associated packages and functions will be given. However, R grammar and syntax will not be covered in detail for this workshop.
-Data analysis and data analysis interpretation will be out of the scope for this workshop. This can be covered in a future workshop
+
 
 ***
 
