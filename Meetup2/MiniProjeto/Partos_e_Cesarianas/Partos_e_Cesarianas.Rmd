@@ -1,0 +1,118 @@
+---
+title: "Mini-projecto: Partos e cesarianas em Portugal "
+subtitle: "Reproduzir um dos graficos"
+output: html_document
+---
+
+***
+
+**Objetivo do exercicio:** Usar ggplot2 para produzir uma ou mais visualizações de dados
+
+
+**Dicas**
+
+1. Os passos que se seguem servem para ler a base de dados e descarregar os pacotes necessarios para fazer o exercicio. 
+2. Para funcionar basta carregar no botao ">" de cada "chunk". O codigo corre apenas dentro de cada "chunk" por se tratar de um documento rMarkdown.
+
+***
+
+
+**Leitura da base de dados:** É preciso ler os dados do ficheiro partos-e-cesarianas.csv.
+
+```{r}
+# Leitura do ficheiro csv a partir do repositorio das R-Ladies 
+require(RCurl)
+partos <-read.csv(text=getURL("https://raw.githubusercontent.com/agrou/RLadiesDocuments/master/Meetup2/MiniProjeto/Partos_e_cesarianas/partos-e-cesarianas.csv"), header=T)
+```
+
+
+***
+
+#### Saber mais sobre as variaveis da base de dados
+```{r}
+# Ver os primeiros registos 
+head(partos)
+```
+
+```{r}
+# Estrutura dos dados
+str(partos)
+```
+
+***
+
+#### Usar comandos de ggplot2 disponiveis na documentação do workshop para reproduzir o grafico. 
+
+**Partos_e_Cesarianas_Exercicio 1**
+
+Pre-processamento:
+```{r}
+# Antes de se produzir o grafico, e preciso eliminar registos incompletos.
+partos <- partos[complete.cases(partos),]
+
+# Necessario tambem carregar a biblioteca ggplot2:
+library(ggplot2)
+```
+
+Dicas para reproduzir o grafico na imagem:
+
+* Variaveis: estao identificadas nos eixos
+* Rever os exemplos usados neste workshop com geom_smooth()
+* Utilizar a internet para procurar ajuda
+
+```{r}
+# completar o c?digo...
+g <- ggplot()
+g
+```
+
+**Partos_e_Cesarianas_Exercicio 2**
+
+Pre-processamento:
+```{r}
+# Para este grafico, e preciso criar um novo objecto com o total de partos por mes e por ano, independentemente da regiao e instituicao:
+#
+# Aggregate:
+# Agrupa o atributo No.Total.de.Partos por periodo.
+# Soma todos os registos de No.Total.de.Partos para um dado periodo.
+newPartos <- aggregate(partos$No.Total.de.Partos, list(Periodo = partos$Periodo), sum)
+
+# Para visualizar o novo objecto:
+# head(newPartos)
+```
+
+```{r}
+# No novo objecto newPartos, o atributo "numero total de partos" chama-se x. 
+# Vamos dar-lhe um nome mais expressivo.
+colnames(newPartos)[2] <- "NoTotalDePartos"
+```
+
+
+```{r}
+# Tambem e necessario separa o atributo Periodo em Mes e Ano.
+# Estes dados sao extraidos do atributo partos$Periodo que tem a forma "YYYY-MM".
+newPartos$Ano <- substr(newPartos$Periodo, 1,4)
+newPartos$Mes <- substr(newPartos$Periodo, 6,7)
+```
+
+Visualizar os dados ap?s processamento:
+```{r}
+# Ver os primeiros registos 
+head(newPartos)
+```
+
+```{r}
+str(newPartos)
+```
+
+Dicas para reproduzir o grafico na imagem:
+
+* Variaveis: estao identificadas nos eixos
+* Rever os exemplos usados neste workshop com geom_bar() e facet_grid()
+* Utilizar a ajuda do R-Studio ou da internet 
+
+```{r}
+# completar o c?digo...
+g <- ggplot()
+g
+```
