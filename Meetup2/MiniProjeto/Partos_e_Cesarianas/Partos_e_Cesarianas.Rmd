@@ -22,7 +22,7 @@ output: html_document
 ```{r}
 # Leitura do ficheiro csv a partir do repositorio das R-Ladies 
 require(RCurl)
-partos <-read.csv(text=getURL("https://raw.githubusercontent.com/agrou/RLadiesDocuments/master/Meetup2/MiniProjeto/Partos_e_cesarianas/partos-e-cesarianas.csv"), header=T)
+partos <-read.csv(text=getURL("https://raw.githubusercontent.com/agrou/RLadiesDocuments/master/Meetup2/MiniProjeto/Partos_e_Cesarianas/partos-e-cesarianas.csv"), header=T)
 ```
 
 
