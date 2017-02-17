@@ -1,0 +1,410 @@
+---
+author: "Elizabeth Cruz"
+date: "18 de Fevereiro de 2017"
+output: html_document
+---
+
+<center><h1>What is ggplot2?</h1></center>
+ 
+<center><h2>A Data Visualization package for R</h2></center>
+<br>
+
+- An implementation of **Grammar of Graphics** - a general scheme for data visualization which breaks up graphs into semantic components such as layers (think "noun", "verb", "adjective" for graphics)
+
+- The basic concept is that you combine **plot building blocks** and combine them to create just about any kind of graphical display you want.
+
+<br>
+<center><h4>Data + Mapping + Geometric Object + <small>Stat + Coordinate Systems + Position Adjustments + Faceting + etc.</small></h4></center>
+
+<br>
+<h5>**Example:** ggplot(dataframe, aes(x=, y=)) + geom_point() + facet_grid()</h5>
+
+***
+                             
+###Data Frame###
+- Refers to "tabular" data
+- List of variables (columns) of the same number of rows with unique row names
+
+
+###Aesthetics Mappings                                    
+* Determine how data is mapping                        
+* Means "something you can see"                        
+* Examples include:                                         
+    + Position (on the x and y axes)                        
+    + Color/fill                                            
+    + Shape (of points)                     
+    + Linetype                        
+    + Size                   
+
+###Geoms
+* What you see in the plot
+* Examples include:
+    + Points
+    + Lines
+    + Bars
+
+```{r, echo = FALSE}
+knitr::include_graphics("https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf")
+```
+
+<br>
+
+####There is qplot and ggplot
+- Think of qplot() as a Quick Plot.
+- Think of ggplot() as a muche more Complex Plot
+
+### How to load ggplot2 and dataset?
+```{r}
+#some scaling
+if("repr" %in% rownames(installed.packages()) == FALSE) {install.packages("repr")}
+library(repr)
+options(repr.plot.width=4, repr.plot.height=4)
+
+#loading ggplot2 package
+library(ggplot2)
+```
+``` {r}
+#lets choose the dataset we are going to work on
+library(MASS)
+
+##Structure of the dataset UScereal
+str(UScereal)
+```
+You can always type: ?help(USCereal)
+```{r}
+#some lines
+head(UScereal)
+
+options(repr.plot.width=4, repr.plot.height = 2.91)
+
+#Basic Histogram without ggplot2
+hist(UScereal$protein)
+```
+<br>
+
+### Basic Plot
+```{r}
+options(repr.plot.width = 4, repr.plot.height = 4)
+
+plot(UScereal$sugars, UScereal$calories)
+title("Sugars and calories in US cereals")
+points(sugars ~ calories, col="red", data=UScereal)
+```
+<br>
+
+**EXERCÍCIO 1:** À semelhança do histograma acima, construir um histograma que apresente a contagem de proteínas.
+<br>
+
+***
+
+## The ggplot
+```{r}
+g <- ggplot(UScereal, aes(sugars, calories))
+```
+This means that x is "sugars" and y is "calories".
+
+"Sugars" and "Calories" are column names of the Data Frame UScereal.
+
+<br>
+
+### SCATTER PLOTS - Let's talk about them!!
+```{r}
+g + geom_point()
+```
+
+Let's practice modifying aesthetics now.
+
+```{r}
+g + geom_point(aes(color = I("brown")), size=5, alpha = I(1/5))
+```
+
+To make a semi-transparent colour you can use the alpha aesthetic, which takes a value between 0 (completely transparent) and 1 (complete opaque).
+
+It's often useful to specify the transparency as a fraction, e.g., 1/10 or 1/20, as the denominator specifies the number of points that must overplot to get a completely opaque colour.
+
+We can see that some circles are more transparent than others, because they correspond to a higher frquency.
+
+```{r}
+g + geom_point(size=5, alpha = I(1/3), aes(color = vitamins)) + 
+    labs(title = "Working with Cereals!", x = "Sugars per portion", y= "Calories per portion")
+```
+
+**EXERCÍCIO 2:**
+
+- Utilizar o dataset "airquality" que vem com o R
+- Fazer um scatter plot com Day vs Ozone
+- Deixar a cor ser Wind
+- Introduzir alguma transparência
+- Definir um tamanho para os pontos
+- Dar um título ao gráfico e dar nomes aos eixos
+
+***
+
+```{r}
+g <- ggplot(airquality, aes(Day,Ozone))
+```
+```{r, warning=FALSE}
+g + geom_point(size=4, alpha=I(1/3), aes(color=Wind)) + labs(title="Day vs. Ozone", ylab="Ozono", xlab="Dia da semana")
+```
+<br>
+
+###geom_smooth
+geom_smooth fits a curve between two variables.
+
+*Method LOESS:* LOcally WEighted Scatter-plot Smoother (known as locally weighted polynomial regression) or Method LM: Linear Model
+
+```{r}
+g <- ggplot(UScereal, aes(sugars, calories))
+g + geom_point() + geom_smooth(method="loess")
+```
+```{r}
+g + geom_point() + geom_smooth(method = "lm")
+```
+```{r}
+g + geom_point(size=5, alpha = 1/2, aes(color = vitamins)) + 
+    labs(title = "Working with Cereals Again!", x = "Sugars per portion", y= "Calories per portion") + 
+    geom_smooth(size=4, linetype=1, method="lm", se=FALSE) + theme_bw()
+```
+
+**EXERCÍCIO 3:** 
+
+- Experimentar construir o gráfico acima mas brincando com o tipo de linha e tamanho. 
+- Tentar que a linha seja a tracejado e mais fina.
+
+```{r}
+
+```
+
+
+***
+
+###Boxplots
+```{r}
+g <- ggplot(UScereal, aes(x=mfr, y=calories))
+### G=General Mills, K=Kelloggs, N=Nabisco, P=Post, Q=Quaker Oats, R=Ralston Purina.
+```
+```{r}
+g + geom_boxplot(aes(fill=mfr, color=I("black"))) + 
+    ylim(75, 240) +
+    labs(title = "Working with Cereals Again!", x = "Manufacturer", y= "Calories per portion") + 
+    theme_bw()
+### mfr=manufacturer
+```
+
+In a boxplot, we can see the change in the median and adjacent quartiles.
+<br>
+
+###Histogram and Density plots
+Histogram and density plots show the distribution os a single variable.
+
+The following code shows the distribution of calories:
+```{r}
+g <- ggplot(UScereal, aes(calories))
+g + geom_histogram(aes(y=..density.., fill=I("blue"))) + 
+    geom_density(aes(color=I("brown"))) + 
+    labs(title="Contagem de Calorias", x="Calorias", y="Contagem") + 
+    theme_bw()
+```
+
+###Waht is the Bin Width?
+```{r}
+g <- ggplot(UScereal, aes(calories))
+g + geom_histogram(aes(fill=I("blue")))
+```
+
+We get a message about the binwidth defaulting to 30.
+
+When you make a histogram, you're essentially making a bar chart that shows how many data points fit within a certain range. That range is the bin width.
+
+So in a histogram, data is grouped into "bins".
+
+To construct a histogram, the first step is to "bin" the range of values—that is, divide the entire range of values into a series of intervals—and then count how many values fall into each interval. The bins are usually specified as consecutive, non-overlapping intervals of a variable.
+
+Lets try to calculate the bin width.
+
+We simply find the range (maximum - minimum) and divide that by how many bins we'd like to have.
+
+A rough guideline for the number of bins is: take the square root of the number of data values you have.
+
+```{r}
+range_calories = max(UScereal$calories) - min(UScereal$calories)
+range_calories
+```
+```{r}
+number_bins = sqrt(nrow(UScereal))
+number_bins
+```
+```{r}
+g + geom_histogram(binwidth = 48, aes(fill=I("blue")))
+```
+
+No more messages in red!
+
+```{r}
+g + geom_histogram(binwidth = 48, aes(color=mfr, fill=mfr)) + 
+    labs(title="Calories Count", x="Calories", y="Frequency") + 
+    theme_bw()
+```
+
+Too complicated! Lets chack a boxplot of it.
+
+```{r}
+ggplot(UScereal, aes(x=mfr, y=calories)) + 
+    geom_boxplot(aes(fill=mfr, color=I("black"))) + 
+    ylim(75, 240) +
+    labs(title = "Working with Cereals Again!", x = "Manufacturer", y= "Calories per portion") + 
+    theme_bw()
+```
+<br>
+
+###Time series with line and path plots
+Shows how a single variable change over time.
+
+Because there is no time variable in the USCereal data, we use the economics dataset wich describes unemployment in a certain population over time.
+
+```{r}
+str(economics)
+```
+```{r}
+g <- ggplot(economics, aes(date, unemploy))
+g + geom_line(aes(color=I("blue"))) + 
+    labs(title="Our First Time Series", x="Date", y="Unemployment in thousands") +
+    theme_bw()
+```
+
+```{r}
+options(repr.plot.width=4, repr.plot.height=2.9)
+
+g <- ggplot(economics, aes(date, unemploy/pop))
+g + geom_line(aes(color=I("blue"))) + 
+    labs(title="Our Second Time Series", x="Date", y="Unemployment/Population") + theme_bw()
+```
+
+Some other themes: Balck and White, Grey Theme and The FiveThirtyEight Theme
+
+```{r}
+library(ggthemes)
+
+options(repr.plot.width=4, repr.plot.height=2.9)
+
+g <- ggplot(economics, aes(date, unemploy/pop))
+
+g + geom_line(aes(color=I("blue"))) + 
+    labs(title="Our Second Time Series", x="Date", y="Unemployment/Population") + theme_bw()
+
+g + geom_line(aes(color=I("blue"))) + 
+    labs(title="Our Second Time Series", x="Date", y="Unemployment/Population") + theme_grey()
+
+g + geom_line(aes(color=I("blue"))) + 
+    labs(title="Our Second Time Series", x="Date", y="Unemployment/Population") + theme_fivethirtyeight()
+```
+
+###Faceting
+We have already discussed using aesthetics (colour and shape) to compare subgroups, drawing all groups on the same plot.
+
+Faceting takes an alternative approach: It creates tables of graphics by splitting the data into subsets and displaying the same graph for each subset in an arrangement that facilitates comparison.
+
+The default faceting method in GGplot() creates plots arranged on a grid specified by a faceting formula which looks like row_var ~ col_var.
+
+You can specify as many row and column variables as you like, keeping in mind that using more than two variables will often produce a plot so large that it is difficult to see on screen. To facet on only one of columns or rows, use . as a place holder.
+
+For example, row_var ~ . will create a single column with multiple rows.
+
+For faceting we will use a different dataset called Diamonds.
+
+```{r}
+str(diamonds)
+```
+
+```{r}
+head(diamonds)
+```
+
+The following code illustrates this technique with a histogram showing the distribution of carats conditional on color.
+
+```{r}
+options(repr.plot.width=5, repr.plot.height=6)
+
+ggplot(diamonds, aes(carat)) + 
+    geom_histogram(binwidth = 0.1, aes(fill=I("blue"))) + 
+    facet_grid(color ~.) + 
+    coord_cartesian(xlim = c(0, 3), ylim = c(0, 1800)) + 
+    theme_bw() + 
+    labs(x="Carats", y="Frequency")
+```
+
+```{r}
+diamonds_small <- diamonds[sample(1:nrow(diamonds), 200, replace=FALSE),]
+
+str(diamonds_small)
+```
+
+Now, lets try it with some scatter plots.
+
+```{r}
+options(repr.plot.width=4, repr.plot.height=4)
+
+g <- ggplot(diamonds_small, aes(x=carat, y=price, color=color)) + 
+    geom_point(shape=1) +
+    labs(title="Smaller Scatter Plot", x="Carat", y="Price") + 
+    theme_fivethirtyeight()
+g
+```
+
+```{r}
+options(repr.plot.width=5, repr.plot.height=6)
+
+# Divide by levels of "color", in the vertical direction
+g <- ggplot(diamonds_small, aes(x=carat, y=price, color=color)) + 
+    geom_point(shape=1) +
+    labs(title="Smaller Scatter Plot", x="Carat", y="Price") + 
+    theme_bw() +
+    facet_grid(color ~ .)
+g
+```
+
+```{r}
+options(repr.plot.width=7, repr.plot.height=6)
+
+# Divide by levels of "color", in the horizontal direction
+g <- ggplot(diamonds_small, aes(x=carat, y=price, color=color)) + 
+    geom_point(shape=1) +
+    labs(title="Smaller Scatter Plot", x="Carat", y="Price") + 
+    theme_bw() +
+    facet_grid(. ~ color)
+g
+```
+
+```{r}
+options(repr.plot.width=7, repr.plot.height=6)
+
+# Divide with "cut" vertical, "shape" horizontal
+g <- ggplot(diamonds_small, aes(x=carat, y=price, color=color)) + 
+    geom_point(shape=1) +
+    labs(title="Smaller Scatter Plot", x="Carat", y="Price") + 
+    theme_grey() +
+    facet_grid(cut ~ color)
+g
+```
+
+##Plotly - Interactive ggplot
+In RStudio.
+
+##Sumário para recapitular:
+- ggplot2 baseado na "Gramática de Gráficos"
+
+- str() e head() para inspeccionar base de dados
+
+- os 2 atributos do ggplot2 mais importantes são: Aesthetics e Geoms
+
+- geom_point: Gráfico de Pontos
+- geom_smooth: Curva
+- geom_boxplot: Gráfico de "Caixas"
+- geom_hist e geom_density: Histograma e Densidade
+- geom_line: Time Series
+
+- facet_grid: "multigráfico"
+
+- theme_bw/theme_grey/theme_fivethirtyeight
+
+- ggplotly: pacote Plotly para interactividade

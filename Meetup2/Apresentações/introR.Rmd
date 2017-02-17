@@ -1,0 +1,178 @@
+---
+title: "Workshop de Visualização de dados com ggplot2"
+fontsize: 24pt
+output:
+  html_document:
+    css: assets/style.css
+---
+
+***
+**18-02-2017**
+
+
+Bem-vindas e Bem-vindos!
+========================================================
+
+Todo o material relacionado com este workshop estará disponível no github: https://github.com/rladieslx/RLadiesDocuments
+
+**Sugiro que se sentem em pares, com alguém que não conhecem.**
+
+* Pedimos que se introduzam uns aos outros.
+* Cada um pode usar o seu computador. 
+
+***
+
+Breve introdução da comunidade R-Ladies Lisboa
+========================================================
+
+R-Ladies Lisboa foi fundada em Outubro de 2016: 
+
+* promover diversidade na comunidade de programação R 
+* "chapter" da R-Ladies Global (35 cidades). 
+* Criar oportunidades de aprendizagem e partilha de conhecimento.
+
+```{r, echo = FALSE}
+knitr::include_graphics("https://github.com/agrou/rladiesLisboa/blob/master/1stEvent/assets/img/R_LadiesGlobal_map.jpg?raw=true")
+```
+More info [here]("https://twitter.com/RLadiesGlobal/status/826495230710947840/photo/1")
+
+***
+
+Agradecimentos 
+========================================================
+
+```{r r-ladies logo, out.width= '200px', echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("https://github.com/agrou/rladiesLisboa/blob/master/1stEvent/assets/img/R-LadiesGlobal_min.png?raw=true")
+```
+
+```{r ilustat logo, out.width = "200px", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("https://github.com/agrou/rladiesLisboa/blob/master/1stEvent/assets/img/ilustat.png?raw=true")
+```
+
+```{r NMATH, out.width = "200px", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("https://scontent-mad1-1.xx.fbcdn.net/v/t1.0-9/206372_547201345310809_1638096680_n.png?oh=2513ea3f7e94f283682ab3e924b3fcf4&oe=5906D34E")
+```
+
+***
+
+Programa de hoje
+========================================================
+```Programa_v2_md```
+
+9h15 - Recepção - Boas vindas
+
+9h20 -  Iniciar R-Studio 
+
+9h45 - Introdução à visualização de dados
+
+10h10 - Exercícios
+
+11h - 11h20 - Coffee-break! 
+
+11h20 - Mini-Projeto
+
+12h30 - Finalização do workshop 
+
+***
+
+Iniciar R-Studio - Breve explicação
+========================================================
+
+Quem nunca usou R?
+
+
+```{r, eval = FALSE, echo = FALSE}
+
+```
+
+***
+
+Instruções iniciais:
+========================================================
+- Podem abrir o R Studio e pedimos que instalem o `R Markdown` caso não o tenham instalado.
+```{r}
+# Instalar o rmarkdown se ainda não estiver instalado
+if("rmarkdown" %in% rownames(installed.packages()) == FALSE) {install.packages("rmarkdown")}
+```
+```
+
+
+Os pacotes que vamos utilizar são: ggplot2, gridExtra, ggthemes, e MASS. 
+Podem instalar manualmente ou com ```install.packages("<nome do pacote")``` se não tiverem instalado previamente.
+
+***
+
+Mini-Projeto
+========================================================
+
+Escolher um data set e produzir um gráfico:
+
+* Human health: UScereal
+* Social entertainment: fandango
+* Animal science: msleep
+
+***
+
+Eventos futuros
+========================================================
+* Problemas e erros comuns: como resolver
+* Aprender R em conjunto: swirl ou outros formatos interactivos
+* Manipulação de dados - tidyverse, diplyr
+* R e Machine Learning
+
+***
+
+Links úteis
+========================================================
+
+**Introduction to R**
+
+What is R: https://www.r-project.org/about.html
+
+**Tutorials to learn R:** 
+
+* R-bloggers: https://www.r-bloggers.com/how-to-learn-r-2/#h.nl3rvdr3ycsc
+* Swirl: http://swirlstats.com/students.html
+* Datacamp: https://www.datacamp.com/courses/free-introduction-to-r/?tap_a=5644-dce66f&tap_s=10907-287229
+* Harvard: http://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html
+
+**data sources for practicing**
+
+https://blog.rstudio.org/2014/07/23/new-data-packages/
+
+**ggplot2**
+
+* Cheatsheet: http://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+
+* New features: https://github.com/tidyverse/ggplot2/releases
+
+
+**Index of fuctionalities:** 
+
+* http://docs.ggplot2.org/current/
+* https://www.rdocumentation.org/packages/ggthemes/versions/3.3.0?
+
+* Online tutorial of R and data visualization (Good for introduction):* http://varianceexplained.org/RData/lessons/lesson2/segment1/
+
+* **Trends:** https://www.r-bloggers.com/search/ggplot2/
+
+**Interesting:**
+
+* https://www.r-bloggers.com/dont-teach-built-in-plotting-to-beginners
+* https://www.r-bloggers.com/plotting-letters-as-shapes-in-ggplot2/
+* http://docs.ggplot2.org/dev/vignettes/qplot.html
+* http://docs.ggplot2.org/current/
+* https://www.r-bloggers.com/creating-a-balloon-plot-as-alternative-to-a-heat-map-with-ggplot2/ 
+* http://brazenly.blogspot.pt/2014/04/r-playing-with-legends-of-graph-using.html
+
+**Free datasets**
+
+* https://datahub.io
+
+**ggplot2 new features**
+
+https://github.com/tidyverse/ggplot2/releases
+
+**gender statistics**
+
+https://www.r-bloggers.com/exploring-world-gender-statistics-with-shiny/
